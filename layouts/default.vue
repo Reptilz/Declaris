@@ -1,7 +1,7 @@
 <template>
   <div class="antialiased bg-white">
     <!-- Header -->
-    <AppHeader />
+    <LayoutAppHeader />
 
     <!-- Main Content -->
     <main>
@@ -9,7 +9,7 @@
     </main>
 
     <!-- Footer -->
-    <AppFooter />
+    <LayoutAppFooter />
   </div>
 </template>
 
