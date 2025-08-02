@@ -157,6 +157,9 @@
       </div>
     </section>
 
+    <!-- Section Pricing -->
+    <PricingSection />
+
   </div>
 </template>
 
