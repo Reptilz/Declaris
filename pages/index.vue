@@ -2,7 +2,7 @@
   <div>
 
     <!-- Hero Section -->
-    <section class="flex items-center w-full bg-white py-16">
+    <section class="flex items-center w-full bg-white py-16 mt-8 md:mt-16">
       <div class="container flex flex-col items-center justify-between px-6 py-8 mx-auto lg:flex-row">
         <div class="flex flex-col items-center w-full lg:flex-row lg:w-2/5">
           <div class="max-w-2xl mb-8">

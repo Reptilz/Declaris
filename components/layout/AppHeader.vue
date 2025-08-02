@@ -10,10 +10,30 @@
         aria-controls="navbar-sticky" 
         :aria-expanded="showMobileMenu"
       >
-        <span class="sr-only">Ouvrir le menu principal</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
+        <span class="sr-only">{{ showMobileMenu ? 'Fermer le menu' : 'Ouvrir le menu principal' }}</span>
+        <div class="w-5 h-5 flex flex-col justify-center items-center">
+          <span 
+            :class="{
+              'rotate-45 translate-y-1.5': showMobileMenu,
+              'rotate-0 translate-y-0': !showMobileMenu
+            }"
+            class="block w-5 h-0.5 bg-current transition-all duration-300 ease-out"
+          ></span>
+          <span 
+            :class="{
+              'opacity-0': showMobileMenu,
+              'opacity-100': !showMobileMenu
+            }"
+            class="block w-5 h-0.5 bg-current mt-1 transition-all duration-300 ease-out"
+          ></span>
+          <span 
+            :class="{
+              '-rotate-45 -translate-y-1.5': showMobileMenu,
+              'rotate-0 translate-y-0': !showMobileMenu
+            }"
+            class="block w-5 h-0.5 bg-current mt-1 transition-all duration-300 ease-out"
+          ></span>
+        </div>
       </button>
       
       <!-- Logo (centré sur mobile, à gauche sur desktop) -->
@@ -163,42 +183,89 @@
         </svg>
       </NuxtLink>
       
-      <!-- Navigation mobile/desktop -->
-      <div 
-        :class="{'hidden': !showMobileMenu}"
-        class="absolute top-full left-0 w-full h-screen bg-white border-b border-gray-100 shadow-lg overflow-y-auto z-50 md:relative md:top-auto md:left-auto md:w-auto md:h-auto md:bg-transparent md:border-0 md:shadow-none md:flex md:order-1 md:overflow-visible md:z-auto" 
-        id="navbar-sticky"
+      <!-- Navigation desktop -->
+      <div class="hidden md:flex md:order-1">
+        <ul class="flex font-medium space-x-10">
+          <li>
+            <a 
+              href="#features" 
+              class="relative block py-2 text-base text-gray-900 hover:text-indigo-600 transition-colors duration-300 group"
+            >
+              <span>Fonctionnalités</span>
+              <span class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out"></span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#pricing" 
+              class="relative block py-2 text-base text-gray-900 hover:text-indigo-600 transition-colors duration-300 group"
+            >
+              <span>Tarifs</span>
+              <span class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out"></span>
+            </a>
+          </li>
+          <li>
+            <NuxtLink 
+              to="/contact" 
+              class="relative block py-2 text-base text-gray-900 hover:text-indigo-600 transition-colors duration-300 group"
+            >
+              <span>Contact</span>
+              <span class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out"></span>
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Navigation mobile -->
+      <Transition
+        enter-active-class="transition-all duration-300 ease-out"
+        enter-from-class="opacity-0 -translate-y-4"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition-all duration-200 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 -translate-y-4"
       >
-        <ul class="flex flex-col p-4 md:p-0 font-medium md:space-x-8 md:flex-row">
+        <div 
+          v-show="showMobileMenu"
+          class="absolute top-full left-0 w-full h-screen bg-white border-b border-gray-100 shadow-lg overflow-y-auto z-50 md:hidden" 
+          id="navbar-sticky"
+        >
+        <ul class="flex flex-col p-4 font-medium">
           <!-- Navigation links -->
           <li>
             <a 
               href="#features" 
               @click="closeMobileMenu"
-              class="relative block py-3 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors duration-300 group border-b border-gray-100 md:border-0"
+              class="relative flex items-center justify-between py-3 px-3 text-gray-900 hover:bg-gray-100 transition-colors duration-300 border-b border-gray-100"
             >
-              Fonctionnalités
-              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out hidden md:block"></span>
+              <span>Fonctionnalités</span>
+              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </a>
           </li>
           <li>
             <a 
               href="#pricing" 
               @click="closeMobileMenu"
-              class="relative block py-3 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors duration-300 group border-b border-gray-100 md:border-0"
+              class="relative flex items-center justify-between py-3 px-3 text-gray-900 hover:bg-gray-100 transition-colors duration-300 border-b border-gray-100"
             >
-              Tarifs
-              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out hidden md:block"></span>
+              <span>Tarifs</span>
+              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </a>
           </li>
           <li>
             <NuxtLink 
               to="/contact" 
               @click="closeMobileMenu"
-              class="relative block py-3 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors duration-300 group border-b border-gray-100 md:border-0"
+              class="relative flex items-center justify-between py-3 px-3 text-gray-900 hover:bg-gray-100 transition-colors duration-300 border-b border-gray-100"
             >
-              Contact
-              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out hidden md:block"></span>
+              <span>Contact</span>
+              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </NuxtLink>
           </li>
           
@@ -261,7 +328,8 @@
             </button>
           </li>
         </ul>
-      </div>
+        </div>
+      </Transition>
     </div>
   </nav>
 </template>
