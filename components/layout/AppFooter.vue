@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-gray-900 text-white">
-    <div class="container p-8 mx-auto xl:px-0">
+    <div class="max-w-screen-xl container p-8 mx-auto xl:px-0">
       <div class="flex flex-wrap text-left lg:text-left">
         <div class="w-full px-4 lg:w-2/6">
           <div class="flex flex-col justify-between h-full pb-6 pr-6">

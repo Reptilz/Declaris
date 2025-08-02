@@ -3,9 +3,9 @@
 
     <!-- Hero Section -->
     <section class="flex items-center w-full bg-white py-16 mt-8 md:mt-16">
-      <div class="container flex flex-col items-center justify-between px-6 py-8 mx-auto lg:flex-row">
-        <div class="flex flex-col items-center w-full lg:flex-row lg:w-2/5">
-          <div class="max-w-2xl mb-8">
+      <div class="max-w-screen-xl container flex flex-col items-center justify-between px-6 py-8 mx-auto lg:flex-row">
+        <div class="flex flex-col items-center w-full lg:flex-row lg:w-3/5">
+          <div class="max-w-3xl mb-8">
             <h1 class="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
               Ne ratez plus jamais vos 
               <span class="text-indigo-600">échéances fiscales</span>
@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center justify-center w-full lg:w-3/5">
+        <div class="flex items-center justify-center w-full lg:w-2/5">
           <div class="w-full max-w-md">
             <!-- Placeholder pour illustration -->
             <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-8 text-center">

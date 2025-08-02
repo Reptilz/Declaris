@@ -44,7 +44,7 @@
             </li>
           </ul>
           
-          <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+          <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors cursor-pointer">
             Commencer gratuitement
           </button>
         </div>
@@ -91,7 +91,7 @@
             </li>
           </ul>
           
-          <button class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+          <button class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition-colors cursor-pointer">
             Choisir Premium
           </button>
         </div>
@@ -134,7 +134,7 @@
             </li>
           </ul>
           
-          <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+          <button class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors cursor-pointer">
             Choisir Pro
           </button>
         </div>
