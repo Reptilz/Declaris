@@ -1,41 +1,34 @@
 <template>
-  <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
-    <nav class="container flex flex-wrap items-center justify-between p-6 mx-auto lg:justify-between xl:px-0">
-      <!-- Logo -->
-      <div class="flex items-center justify-between w-full lg:w-auto">
-        <NuxtLink to="/" class="flex items-center space-x-2 text-2xl font-medium text-indigo-500">
-          <span>
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </span>
-          <span>Declaris</span>
-        </NuxtLink>
-      </div>
-
-      <!-- Navigation -->
-      <div class="hidden text-center lg:flex lg:items-center">
-        <ul class="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-          <li class="mr-3 nav__item">
-            <a href="#features" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
-              Fonctionnalités
-            </a>
-          </li>
-          <li class="mr-3 nav__item">
-            <a href="#pricing" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
-              Tarifs
-            </a>
-          </li>
-          <li class="mr-3 nav__item">
-            <NuxtLink to="/contact" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
-              Contact
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-
-      <div class="flex items-center gap-3 nav__item mr-2 lg:flex ml-auto lg:ml-0 lg:order-2">
-        <!-- Sélecteur de langue -->
+  <nav class="bg-white/95 backdrop-blur-md fixed w-full z-50 top-0 left-0 border-b border-gray-100 shadow-sm">
+    <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 py-4 w-full">
+      
+      <!-- Mobile: Hamburger à gauche -->
+      <button 
+        @click="toggleMobileMenu" 
+        type="button" 
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 transition-colors" 
+        aria-controls="navbar-sticky" 
+        :aria-expanded="showMobileMenu"
+      >
+        <span class="sr-only">Ouvrir le menu principal</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+      </button>
+      
+      <!-- Logo (centré sur mobile, à gauche sur desktop) -->
+      <NuxtLink to="/" class="flex items-center space-x-3 text-2xl font-bold text-indigo-600 hover:text-indigo-700 transition-all duration-300 group md:order-1">
+        <span class="transform group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </span>
+        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent whitespace-nowrap">Declaris</span>
+      </NuxtLink>
+      
+      <!-- Desktop: Actions (langue + bouton) -->
+      <div class="hidden md:flex md:order-2 items-center gap-3">
+        <!-- Sélecteur de langue (desktop seulement) -->
         <div class="relative">
           <button 
             @click="toggleLanguageDropdown"
@@ -69,8 +62,8 @@
               <path fill="#C8102E" d="M204.8 0v512h102.4V0" stroke="#FFF" stroke-width="68.3"/>
             </svg>
             {{ getLanguageLabel(selectedLanguage) }}
-            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            <svg class="w-2.5 h-2.5 ms-1 md:ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
           </button>
           
@@ -151,19 +144,136 @@
           </div>
         </div>
 
-        <!-- Bouton Se connecter -->
-        <NuxtLink to="/login" class="px-6 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors">
-          Se connecter
+        <!-- Bouton Se connecter (desktop) -->
+        <NuxtLink to="/login" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 transform hover:scale-105 hover:shadow-lg group overflow-hidden">
+          <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+          <span class="relative flex items-center gap-2">
+            Se connecter
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </span>
         </NuxtLink>
       </div>
-    </nav>
-  </header>
+      
+      <!-- Mobile: Icône utilisateur à droite -->
+      <NuxtLink to="/login" class="md:hidden p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+        </svg>
+      </NuxtLink>
+      
+      <!-- Navigation mobile/desktop -->
+      <div 
+        :class="{'hidden': !showMobileMenu}"
+        class="absolute top-full left-0 w-full h-screen bg-white border-b border-gray-100 shadow-lg overflow-y-auto z-50 md:relative md:top-auto md:left-auto md:w-auto md:h-auto md:bg-transparent md:border-0 md:shadow-none md:flex md:order-1 md:overflow-visible md:z-auto" 
+        id="navbar-sticky"
+      >
+        <ul class="flex flex-col p-4 md:p-0 font-medium md:space-x-8 md:flex-row">
+          <!-- Navigation links -->
+          <li>
+            <a 
+              href="#features" 
+              @click="closeMobileMenu"
+              class="relative block py-3 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors duration-300 group border-b border-gray-100 md:border-0"
+            >
+              Fonctionnalités
+              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out hidden md:block"></span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#pricing" 
+              @click="closeMobileMenu"
+              class="relative block py-3 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors duration-300 group border-b border-gray-100 md:border-0"
+            >
+              Tarifs
+              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out hidden md:block"></span>
+            </a>
+          </li>
+          <li>
+            <NuxtLink 
+              to="/contact" 
+              @click="closeMobileMenu"
+              class="relative block py-3 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors duration-300 group border-b border-gray-100 md:border-0"
+            >
+              Contact
+              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300 ease-out hidden md:block"></span>
+            </NuxtLink>
+          </li>
+          
+          <!-- Sélecteur de langue (mobile seulement) -->
+          <li class="md:hidden border-t border-gray-200 pt-4 mt-2">
+            <div class="px-3 py-2 text-sm font-medium text-gray-500 uppercase tracking-wider">Langue</div>
+            <button 
+              @click="selectLanguage('fr')"
+              :class="{'bg-indigo-50 text-indigo-600': selectedLanguage === 'fr'}"
+              class="w-full text-left flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              <svg class="w-4 h-4 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <g fill-rule="evenodd" stroke-width="1pt">
+                  <path fill="#fff" d="M0 0h512v512H0z"/>
+                  <path fill="#002654" d="M0 0h170.7v512H0z"/>
+                  <path fill="#ce1126" d="M341.3 0H512v512H341.3z"/>
+                </g>
+              </svg>
+              Français
+            </button>
+            <button 
+              @click="selectLanguage('nl')"
+              :class="{'bg-indigo-50 text-indigo-600': selectedLanguage === 'nl'}"
+              class="w-full text-left flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              <svg class="w-4 h-4 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="#21468b" d="M0 0h512v170.7H0z"/>
+                <path fill="#fff" d="M0 170.7h512v341.3H0z"/>
+                <path fill="#ae1c28" d="M0 341.3h512V512H0z"/>
+              </svg>
+              Nederlands
+            </button>
+            <button 
+              @click="selectLanguage('de')"
+              :class="{'bg-indigo-50 text-indigo-600': selectedLanguage === 'de'}"
+              class="w-full text-left flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              <svg class="w-4 h-4 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M0 0h512v170.7H0z"/>
+                <path fill="#de2910" d="M0 170.7h512v170.6H0z"/>
+                <path fill="#ffce00" d="M0 341.3h512V512H0z"/>
+              </svg>
+              Deutsch
+            </button>
+            <button 
+              @click="selectLanguage('en')"
+              :class="{'bg-indigo-50 text-indigo-600': selectedLanguage === 'en'}"
+              class="w-full text-left flex items-center px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              <svg class="w-4 h-4 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="#012169" d="M0 0h512v512H0z"/>
+                <path fill="#FFF" d="m0 0 512 512M512 0 0 512"/>
+                <path fill="#C8102E" d="m0 0 512 512M512 0 0 512" stroke="#FFF" stroke-width="102.4"/>
+                <path fill="#FFF" d="M0 204.8h512v102.4H0z"/>
+                <path fill="#C8102E" d="M0 204.8h512v102.4H0" stroke="#FFF" stroke-width="68.3"/>
+                <path fill="#FFF" d="M204.8 0v512h102.4V0z"/>
+                <path fill="#C8102E" d="M204.8 0v512h102.4V0" stroke="#FFF" stroke-width="68.3"/>
+              </svg>
+              English
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 // Gestion des langues
 const selectedLanguage = ref('fr')
 const showLanguageDropdown = ref(false)
+
+// Gestion du menu mobile
+const showMobileMenu = ref(false)
 
 // Labels des langues
 const getLanguageLabel = (lang) => {
@@ -176,10 +286,39 @@ const getLanguageLabel = (lang) => {
   return labels[lang] || 'Français'
 }
 
-// Basculer l'affichage du dropdown
+// Basculer l'affichage du dropdown langue
 const toggleLanguageDropdown = () => {
   showLanguageDropdown.value = !showLanguageDropdown.value
 }
+
+// Basculer le menu mobile
+const toggleMobileMenu = () => {
+  showMobileMenu.value = !showMobileMenu.value
+  // Bloquer/débloquer le scroll de la page
+  if (process.client) {
+    if (showMobileMenu.value) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }
+}
+
+// Fermer le menu mobile
+const closeMobileMenu = () => {
+  showMobileMenu.value = false
+  // Débloquer le scroll de la page
+  if (process.client) {
+    document.body.style.overflow = ''
+  }
+}
+
+// Nettoyer le style overflow au démontage
+onUnmounted(() => {
+  if (process.client) {
+    document.body.style.overflow = ''
+  }
+})
 
 // Sélectionner une langue
 const selectLanguage = (lang) => {
@@ -195,10 +334,14 @@ const selectLanguage = (lang) => {
   }
 }
 
-// Fermer le dropdown si on clique ailleurs
-const closeDropdownOnClickOutside = (event) => {
+// Fermer les dropdowns si on clique ailleurs
+const closeDropdownsOnClickOutside = (event) => {
   if (!event.target.closest('.relative')) {
     showLanguageDropdown.value = false
+  }
+  // Fermer le menu mobile si on clique sur un lien
+  if (event.target.closest('a')) {
+    showMobileMenu.value = false
   }
 }
 
@@ -210,15 +353,15 @@ onMounted(() => {
       selectedLanguage.value = savedLang
     }
     
-    // Écouter les clics pour fermer le dropdown
-    document.addEventListener('click', closeDropdownOnClickOutside)
+    // Écouter les clics pour fermer les dropdowns
+    document.addEventListener('click', closeDropdownsOnClickOutside)
   }
 })
 
 // Nettoyer l'écouteur d'événements
 onUnmounted(() => {
   if (process.client) {
-    document.removeEventListener('click', closeDropdownOnClickOutside)
+    document.removeEventListener('click', closeDropdownsOnClickOutside)
   }
 })
 </script>
