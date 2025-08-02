@@ -2,7 +2,7 @@
   <div>
 
     <!-- Hero Section -->
-    <section class="flex items-center w-full bg-white">
+    <section class="flex items-center w-full bg-white py-16">
       <div class="container flex flex-col items-center justify-between px-6 py-8 mx-auto lg:flex-row">
         <div class="flex flex-col items-center w-full lg:flex-row lg:w-1/2">
           <div class="max-w-2xl mb-8">
@@ -45,10 +45,16 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="bg-gray-50">
+    <section id="features" class="bg-gray-50 py-20">
       <div class="container p-8 mx-auto xl:px-0">
         <div class="flex flex-wrap mb-20 lg:gap-10 lg:flex-nowrap">
-          <div class="flex items-center justify-center w-full lg:w-1/2">
+          <!-- Cartes empilées interactives à gauche sur desktop -->
+          <div class="flex items-center justify-center w-full lg:w-1/2 order-2 lg:order-1">
+            <InteractiveCards />
+          </div>
+
+          <!-- Texte à droite sur desktop -->
+          <div class="flex items-center justify-center w-full lg:w-1/2 order-1 lg:order-2">
             <div class="max-w-2xl mb-8">
               <h2 class="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:leading-tight lg:text-4xl">
                 Pourquoi choisir Declaris ?
@@ -106,35 +112,12 @@
               </div>
             </div>
           </div>
-
-          <div class="flex items-center justify-center w-full lg:w-1/2">
-            <div class="bg-white rounded-2xl p-8 shadow-lg">
-              <div class="space-y-4">
-                <div class="flex items-center space-x-3 p-4 bg-green-50 rounded-lg">
-                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span class="text-gray-700">Déclaration TVA - 20 janvier</span>
-                </div>
-                <div class="flex items-center space-x-3 p-4 bg-yellow-50 rounded-lg">
-                  <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <span class="text-gray-700">Cotisations sociales - 31 janvier</span>
-                </div>
-                <div class="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
-                  <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                  <span class="text-gray-700">Versement anticipé - 15 février</span>
-                </div>
-                <div class="flex items-center space-x-3 p-4 bg-purple-50 rounded-lg">
-                  <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
-                  <span class="text-gray-700">Bilan comptable - 31 mars</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
     <!-- Call to Action -->
-    <section class="bg-indigo-600">
+    <section class="bg-indigo-600 py-20">
       <div class="container p-8 mx-auto xl:px-0">
         <div class="flex flex-wrap items-center justify-between w-full max-w-4xl gap-5 mx-auto text-white bg-indigo-600 px-7 py-7 lg:px-12 lg:py-12 lg:flex-nowrap rounded-xl">
           <div class="flex-grow text-center lg:text-left">
@@ -166,14 +149,30 @@
 <script setup>
 // Configuration de la page
 definePageMeta({
-  layout: 'default'
+  title: 'Accueil - Declaris.be',
+  description: 'Ne ratez plus jamais vos échéances fiscales. Recevez des rappels personnalisés pour vos obligations TVA, cotisations sociales et versements anticipés.'
 })
 
+// Configuration du head
 useHead({
-  title: 'Declaris - Gestion fiscale pour indépendants belges',
+  title: 'Accueil - Declaris.be',
   meta: [
-    { name: 'description', content: 'Ne ratez plus jamais vos échéances fiscales. Declaris vous aide à gérer vos obligations TVA, cotisations sociales et versements anticipés.' },
-    { name: 'keywords', content: 'fiscal, TVA, cotisations sociales, indépendant, Belgique, rappels, échéances' }
+    {
+      name: 'description',
+      content: 'Ne ratez plus jamais vos échéances fiscales. Recevez des rappels personnalisés pour vos obligations TVA, cotisations sociales et versements anticipés.'
+    },
+    {
+      property: 'og:title',
+      content: 'Declaris.be - Rappels fiscaux pour indépendants belges'
+    },
+    {
+      property: 'og:description',
+      content: 'Ne ratez plus jamais vos échéances fiscales. Recevez des rappels personnalisés pour vos obligations TVA, cotisations sociales et versements anticipés.'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    }
   ]
 })
 </script>
