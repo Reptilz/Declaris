@@ -13,6 +13,12 @@
   </div>
 </template>
 
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>
+
 <script setup>
 // Layout global pour toutes les pages
 </script>

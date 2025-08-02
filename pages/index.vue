@@ -4,7 +4,7 @@
     <!-- Hero Section -->
     <section class="flex items-center w-full bg-white py-16">
       <div class="container flex flex-col items-center justify-between px-6 py-8 mx-auto lg:flex-row">
-        <div class="flex flex-col items-center w-full lg:flex-row lg:w-1/2">
+        <div class="flex flex-col items-center w-full lg:flex-row lg:w-2/5">
           <div class="max-w-2xl mb-8">
             <h1 class="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
               Ne ratez plus jamais vos 
@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center justify-center w-full lg:w-1/2">
+        <div class="flex items-center justify-center w-full lg:w-3/5">
           <div class="w-full max-w-md">
             <!-- Placeholder pour illustration -->
             <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-8 text-center">
@@ -103,8 +103,8 @@
               
               <!-- Lien En savoir plus -->
               <div class="mt-8">
-                <a href="#" class="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium transition-colors duration-200 group">
-                  En savoir plus
+                <a href="#pricing" class="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium transition-colors duration-200 group">
+                  Voir nos tarifs
                   <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                   </svg>
@@ -141,7 +141,9 @@
     </section>
 
     <!-- Section Pricing -->
-    <PricingSection />
+    <div id="pricing">
+      <PricingSection />
+    </div>
 
   </div>
 </template>

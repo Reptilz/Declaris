@@ -6,7 +6,7 @@
           Tarifs simples et transparents
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Choisissez la formule qui correspond à vos besoins d'indépendant belge.
+          Choisissez la formule qui correspond à vos besoins d'indépendant.
         </p>
       </div>
 

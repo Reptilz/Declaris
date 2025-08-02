@@ -17,14 +17,14 @@
       <div class="hidden text-center lg:flex lg:items-center">
         <ul class="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
           <li class="mr-3 nav__item">
-            <NuxtLink to="/#features" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
+            <a href="#features" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
               Fonctionnalités
-            </NuxtLink>
+            </a>
           </li>
           <li class="mr-3 nav__item">
-            <NuxtLink to="/#pricing" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
+            <a href="#pricing" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
               Tarifs
-            </NuxtLink>
+            </a>
           </li>
           <li class="mr-3 nav__item">
             <NuxtLink to="/contact" class="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none transition-colors">
