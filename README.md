@@ -23,7 +23,7 @@ L’objectif est d’aider ces utilisateurs à ne jamais rater une date importan
 | Étape | Tâches | Détails techniques |
 |-------|--------|--------------------|
 | ~~1.1~~ | ~~Initialiser projet Nuxt 3 avec Tailwind CSS~~ | ~~Utiliser `npx nuxi init` + config Tailwind~~ ✅ |
-| 1.2 | Page d’accueil / Landing page simple | Présentation projet + CTA inscription |
+| ~~1.2~~ | ~~Page d'accueil / Landing page simple~~ | ~~Présentation projet + CTA inscription~~ ✅ |
 | 1.3 | Système d’authentification avec Supabase | Email + mot de passe + gestion token |
 | 1.4 | Page inscription avec formulaire pour sélectionner profil | Statut, fréquence TVA, versements anticipés |
 | 1.5 | Dashboard principal | Affichage de la prochaine échéance + liste |
