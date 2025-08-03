@@ -92,10 +92,14 @@
               name="phone"
               id="phone"
               v-model="form.phone"
-              placeholder="+32 123 45 67 89"
-              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+              placeholder="+32 412 34 56 78"
+              :class="[
+                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
+                errors.phone ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
+              ]"
             />
           </div>
+          <ErrorMessage :show="!!errors.phone" :message="errors.phone" />
         </div>
         <div class="sm:col-span-2">
           <label for="message" class="block text-sm/6 font-semibold text-gray-900">Message</label>
@@ -151,6 +155,7 @@ import ErrorMessage from '~/components/ui/ErrorMessage.vue'
 
 const { validateEmail, getErrorMessage } = useEmailValidation()
 const { analyzeMessage, getSpamMessage } = useSpamDetection()
+const { validateBelgianPhone } = usePhoneValidation()
 
 // État du formulaire
 const form = reactive({
@@ -205,6 +210,20 @@ watch(() => form.email, async (newValue) => {
 })
 
 let emailValidationTimeout = null
+
+watch(() => form.phone, (newValue) => {
+  if (newValue.trim() && errors.value.phone) {
+    delete errors.value.phone
+  }
+  
+  // Validation téléphone en temps réel (si rempli)
+  if (newValue.trim().length > 5) {
+    const phoneValidation = validateBelgianPhone(newValue)
+    if (!phoneValidation.valid) {
+      errors.value.phone = phoneValidation.error
+    }
+  }
+})
 
 watch(() => form.message, (newValue) => {
   if (newValue.trim() && errors.value.message) {
@@ -262,6 +281,14 @@ const validateForm = async () => {
       }
     } catch (error) {
       isValidatingEmail.value = false
+    }
+  }
+  
+  // Validation téléphone (optionnel mais si rempli, doit être valide)
+  if (form.phone.trim()) {
+    const phoneValidation = validateBelgianPhone(form.phone)
+    if (!phoneValidation.valid) {
+      newErrors.phone = phoneValidation.error
     }
   }
   
