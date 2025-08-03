@@ -63,7 +63,7 @@
         </div>
         <div class="sm:col-span-2">
           <label for="email" class="block text-sm/6 font-semibold text-gray-900">Email</label>
-          <div class="mt-2.5">
+          <div class="mt-2.5 relative">
             <input 
               v-model="form.email" 
               type="email" 
@@ -75,26 +75,27 @@
                 errors.email ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
               ]" 
             />
+            <div v-if="isValidatingEmail" class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <svg class="animate-spin h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
           </div>
           <ErrorMessage :show="!!errors.email" :message="errors.email" />
         </div>
         <div class="sm:col-span-2">
-          <label for="phone-number" class="block text-sm/6 font-semibold text-gray-900">Numéro de téléphone</label>
+          <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Numéro de téléphone (optionnel)</label>
           <div class="mt-2.5">
-            <input 
-              v-model="form.phone" 
-              type="tel" 
-              name="phone-number" 
-              id="phone-number" 
-              autocomplete="tel" 
-              :class="[
-                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
-                errors.phone ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
-              ]" 
-              placeholder="+32 123 45 67 89" 
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              v-model="form.phone"
+              placeholder="+32 123 45 67 89"
+              class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
             />
           </div>
-          <ErrorMessage :show="!!errors.phone" :message="errors.phone" />
         </div>
         <div class="sm:col-span-2">
           <label for="message" class="block text-sm/6 font-semibold text-gray-900">Message</label>
@@ -148,6 +149,8 @@
 import { ref, reactive, watch } from 'vue'
 import ErrorMessage from '~/components/ui/ErrorMessage.vue'
 
+const { validateEmail, getErrorMessage } = useEmailValidation()
+
 // État du formulaire
 const form = reactive({
   firstName: '',
@@ -161,6 +164,7 @@ const form = reactive({
 
 // État des erreurs
 const errors = ref({})
+const isValidatingEmail = ref(false)
 
 // Watchers pour effacer les erreurs en temps réel
 watch(() => form.firstName, (newValue) => {
@@ -175,17 +179,33 @@ watch(() => form.lastName, (newValue) => {
   }
 })
 
-watch(() => form.email, (newValue) => {
+watch(() => form.email, async (newValue) => {
   if (newValue.trim() && errors.value.email) {
     delete errors.value.email
   }
-})
-
-watch(() => form.phone, (newValue) => {
-  if (newValue.trim() && errors.value.phone) {
-    delete errors.value.phone
+  
+  // Validation email en temps réel (avec debounce)
+  if (newValue.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue)) {
+    clearTimeout(emailValidationTimeout)
+    emailValidationTimeout = setTimeout(async () => {
+      isValidatingEmail.value = true
+      try {
+        const result = await validateEmail(newValue)
+        console.log('Email validation result:', result)
+        isValidatingEmail.value = false
+        
+        if (result && !result.valid && result.reason !== 'validation_unavailable') {
+          errors.value.email = getErrorMessage(result.reason)
+        }
+      } catch (error) {
+        console.error('Email validation error in watch:', error)
+        isValidatingEmail.value = false
+      }
+    }, 1000) // Attendre 1 seconde après que l'utilisateur arrête de taper
   }
 })
+
+let emailValidationTimeout = null
 
 watch(() => form.message, (newValue) => {
   if (newValue.trim() && errors.value.message) {
@@ -200,7 +220,7 @@ watch(() => form.agreeToPolicy, (newValue) => {
 })
 
 // Fonction de validation
-const validateForm = () => {
+const validateForm = async () => {
   const newErrors = {}
   
   // Validation prénom
@@ -218,11 +238,21 @@ const validateForm = () => {
     newErrors.email = 'L\'email est requis'
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
     newErrors.email = 'Format d\'email invalide'
-  }
-  
-  // Validation téléphone
-  if (!form.phone.trim()) {
-    newErrors.phone = 'Le numéro de téléphone est requis'
+  } else {
+    // Validation email avancée
+    isValidatingEmail.value = true
+    try {
+      const emailResult = await validateEmail(form.email)
+      console.log('Email validation result in form:', emailResult)
+      isValidatingEmail.value = false
+      
+      if (emailResult && !emailResult.valid && emailResult.reason !== 'validation_unavailable') {
+        newErrors.email = getErrorMessage(emailResult.reason)
+      }
+    } catch (error) {
+      console.error('Email validation error in form:', error)
+      isValidatingEmail.value = false
+    }
   }
   
   // Validation message
@@ -240,11 +270,12 @@ const validateForm = () => {
 }
 
 // Fonction de soumission
-const handleSubmit = () => {
-  if (validateForm()) {
-    // TODO: Envoyer le formulaire
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  
+  if (await validateForm()) {
     console.log('Formulaire valide:', form)
-    // Ici vous pourrez ajouter l'envoi vers votre API
+    // Ici vous pouvez envoyer les données à votre API
   } else {
     console.log('Erreurs de validation:', errors.value)
   }
