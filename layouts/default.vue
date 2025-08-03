@@ -1,10 +1,10 @@
 <template>
-  <div class="antialiased bg-white">
+  <div class="antialiased bg-white min-h-screen flex flex-col">
     <!-- Header -->
     <LayoutAppHeader />
 
     <!-- Main Content -->
-    <main>
+    <main class="flex-1">
       <slot />
     </main>
 
