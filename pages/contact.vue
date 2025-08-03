@@ -150,6 +150,7 @@ import { ref, reactive, watch } from 'vue'
 import ErrorMessage from '~/components/ui/ErrorMessage.vue'
 
 const { validateEmail, getErrorMessage } = useEmailValidation()
+const { analyzeMessage, getSpamMessage } = useSpamDetection()
 
 // État du formulaire
 const form = reactive({
@@ -191,14 +192,12 @@ watch(() => form.email, async (newValue) => {
       isValidatingEmail.value = true
       try {
         const result = await validateEmail(newValue)
-        console.log('Email validation result:', result)
         isValidatingEmail.value = false
         
         if (result && !result.valid && result.reason !== 'validation_unavailable') {
           errors.value.email = getErrorMessage(result.reason)
         }
       } catch (error) {
-        console.error('Email validation error in watch:', error)
         isValidatingEmail.value = false
       }
     }, 1000) // Attendre 1 seconde après que l'utilisateur arrête de taper
@@ -211,7 +210,20 @@ watch(() => form.message, (newValue) => {
   if (newValue.trim() && errors.value.message) {
     delete errors.value.message
   }
+  
+  // Détection anti-spam en temps réel
+  if (newValue.trim().length > 20) {
+    clearTimeout(spamCheckTimeout)
+    spamCheckTimeout = setTimeout(() => {
+      const spamAnalysis = analyzeMessage(newValue)
+      if (spamAnalysis.isSpam) {
+        errors.value.message = getSpamMessage(spamAnalysis)
+      }
+    }, 1500) // Délai plus long pour éviter de valider à chaque caractère
+  }
 })
+
+let spamCheckTimeout = null
 
 watch(() => form.agreeToPolicy, (newValue) => {
   if (newValue && errors.value.agreeToPolicy) {
@@ -243,14 +255,12 @@ const validateForm = async () => {
     isValidatingEmail.value = true
     try {
       const emailResult = await validateEmail(form.email)
-      console.log('Email validation result in form:', emailResult)
       isValidatingEmail.value = false
       
       if (emailResult && !emailResult.valid && emailResult.reason !== 'validation_unavailable') {
         newErrors.email = getErrorMessage(emailResult.reason)
       }
     } catch (error) {
-      console.error('Email validation error in form:', error)
       isValidatingEmail.value = false
     }
   }
@@ -258,6 +268,14 @@ const validateForm = async () => {
   // Validation message
   if (!form.message.trim()) {
     newErrors.message = 'Le message est requis'
+  } else if (form.message.trim().length < 10) {
+    newErrors.message = 'Le message doit contenir au moins 10 caractères'
+  } else {
+    // Vérification anti-spam
+    const spamAnalysis = analyzeMessage(form.message)
+    if (spamAnalysis.isSpam) {
+      newErrors.message = getSpamMessage(spamAnalysis)
+    }
   }
   
   // Validation politique de confidentialité
