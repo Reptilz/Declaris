@@ -32,9 +32,7 @@
             <!-- Placeholder pour illustration -->
             <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-8 text-center">
               <div class="w-24 h-24 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 0v8m0-8H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-2"></path>
-                </svg>
+                <LockClosedIcon class="w-8 h-8 text-white" />
               </div>
               <h3 class="text-xl font-semibold text-gray-800 mb-2">Gestion simplifiée</h3>
               <p class="text-gray-600">Toutes vos échéances fiscales en un seul endroit</p>
@@ -66,9 +64,7 @@
               <div class="w-full mt-5">
                 <div class="flex items-start mt-8 space-x-3">
                   <div class="flex items-center justify-center flex-shrink-0 mt-1 bg-indigo-500 rounded-md w-11 h-11">
-                    <svg class="w-7 h-7 text-indigo-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
+                    <ClockIcon class="w-7 h-7 text-indigo-50" />
                   </div>
                   <div>
                     <h4 class="text-xl font-medium text-gray-800">Rappels automatiques</h4>
@@ -78,9 +74,7 @@
 
                 <div class="flex items-start mt-8 space-x-3">
                   <div class="flex items-center justify-center flex-shrink-0 mt-1 bg-indigo-500 rounded-md w-11 h-11">
-                    <svg class="w-7 h-7 text-indigo-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
+                    <CheckCircleIcon class="w-7 h-7 text-indigo-50" />
                   </div>
                   <div>
                     <h4 class="text-xl font-medium text-gray-800">Personnalisé pour vous</h4>
@@ -90,9 +84,7 @@
 
                 <div class="flex items-start mt-8 space-x-3">
                   <div class="flex items-center justify-center flex-shrink-0 mt-1 bg-indigo-500 rounded-md w-11 h-11">
-                    <svg class="w-7 h-7 text-indigo-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 0v8m0-8H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-2"></path>
-                    </svg>
+                    <ShieldCheckIcon class="w-7 h-7 text-indigo-50" />
                   </div>
                   <div>
                     <h4 class="text-xl font-medium text-gray-800">Sécurisé et fiable</h4>
@@ -149,6 +141,8 @@
 </template>
 
 <script setup>
+import { LockClosedIcon, ClockIcon, CheckCircleIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
+
 // Configuration de la page
 definePageMeta({
   title: 'Accueil - Declaris.be',
