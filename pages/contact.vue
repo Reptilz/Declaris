@@ -12,49 +12,119 @@
     </div>
     
     <!-- Formulaire -->
-    <form action="#" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
+    <form @submit.prevent="handleSubmit" class="mx-auto mt-16 max-w-xl sm:mt-20">
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
           <label for="first-name" class="block text-sm/6 font-semibold text-gray-900">Prénom</label>
           <div class="mt-2.5">
-            <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+            <input 
+              v-model="form.firstName" 
+              type="text" 
+              name="first-name" 
+              id="first-name" 
+              autocomplete="given-name" 
+              :class="[
+                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
+                errors.firstName ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
+              ]" 
+            />
           </div>
+          <ErrorMessage :show="!!errors.firstName" :message="errors.firstName" />
         </div>
         <div>
           <label for="last-name" class="block text-sm/6 font-semibold text-gray-900">Nom</label>
           <div class="mt-2.5">
-            <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+            <input 
+              v-model="form.lastName" 
+              type="text" 
+              name="last-name" 
+              id="last-name" 
+              autocomplete="family-name" 
+              :class="[
+                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
+                errors.lastName ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
+              ]" 
+            />
           </div>
+          <ErrorMessage :show="!!errors.lastName" :message="errors.lastName" />
         </div>
         <div class="sm:col-span-2">
           <label for="company" class="block text-sm/6 font-semibold text-gray-900">Entreprise (optionnel)</label>
           <div class="mt-2.5">
-            <input type="text" name="company" id="company" autocomplete="organization" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+            <input 
+              v-model="form.company" 
+              type="text" 
+              name="company" 
+              id="company" 
+              autocomplete="organization" 
+              class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" 
+            />
           </div>
         </div>
         <div class="sm:col-span-2">
           <label for="email" class="block text-sm/6 font-semibold text-gray-900">Email</label>
           <div class="mt-2.5">
-            <input type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+            <input 
+              v-model="form.email" 
+              type="email" 
+              name="email" 
+              id="email" 
+              autocomplete="email" 
+              :class="[
+                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
+                errors.email ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
+              ]" 
+            />
           </div>
+          <ErrorMessage :show="!!errors.email" :message="errors.email" />
         </div>
         <div class="sm:col-span-2">
           <label for="phone-number" class="block text-sm/6 font-semibold text-gray-900">Numéro de téléphone</label>
           <div class="mt-2.5">
-            <input type="tel" name="phone-number" id="phone-number" autocomplete="tel" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" placeholder="+32 123 45 67 89" />
+            <input 
+              v-model="form.phone" 
+              type="tel" 
+              name="phone-number" 
+              id="phone-number" 
+              autocomplete="tel" 
+              :class="[
+                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
+                errors.phone ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
+              ]" 
+              placeholder="+32 123 45 67 89" 
+            />
           </div>
+          <ErrorMessage :show="!!errors.phone" :message="errors.phone" />
         </div>
         <div class="sm:col-span-2">
           <label for="message" class="block text-sm/6 font-semibold text-gray-900">Message</label>
           <div class="mt-2.5">
-            <textarea name="message" id="message" rows="4" class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" placeholder="Décrivez votre question ou votre besoin..."></textarea>
+            <textarea 
+              v-model="form.message" 
+              name="message" 
+              id="message" 
+              rows="4" 
+              :class="[
+                'block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 transition-colors',
+                errors.message ? 'outline-red-300 focus:outline-red-600' : 'outline-gray-300 focus:outline-indigo-600'
+              ]" 
+              placeholder="Décrivez votre question ou votre besoin..."
+            ></textarea>
           </div>
+          <ErrorMessage :show="!!errors.message" :message="errors.message" />
         </div>
         <div class="flex gap-x-4 sm:col-span-2">
           <div class="flex h-6 items-center">
             <div class="group relative inline-flex w-8 shrink-0 rounded-full bg-gray-200 p-px inset-ring inset-ring-gray-900/5 outline-offset-2 outline-indigo-600 transition-colors duration-200 ease-in-out has-[:checked]:bg-indigo-600 has-[:focus-visible]:outline-2">
               <span class="size-4 rounded-full bg-white shadow-xs ring-1 ring-gray-900/5 transition-transform duration-200 ease-in-out group-has-[:checked]:translate-x-3.5" />
-              <input type="checkbox" class="absolute inset-0 appearance-none focus:outline-hidden" aria-label="Accepter les conditions" id="agree-to-policies" name="agree-to-policies" />
+              <input 
+                v-model="form.agreeToPolicy" 
+                type="checkbox" 
+                class="absolute inset-0 appearance-none focus:outline-hidden" 
+                aria-label="Accepter les conditions" 
+                id="agree-to-policies" 
+                name="agree-to-policies" 
+              />
             </div>
           </div>
           <label class="text-sm/6 text-gray-600" for="agree-to-policies">
@@ -62,6 +132,9 @@
             {{ ' ' }}
             <NuxtLink to="/privacy" class="font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500">politique de confidentialité</NuxtLink>.
           </label>
+        </div>
+        <div class="sm:col-span-2">
+          <ErrorMessage :show="!!errors.agreeToPolicy" :message="errors.agreeToPolicy" :compact="true" :alignLeft="true" />
         </div>
       </div>
       <div class="mt-10">
@@ -72,6 +145,111 @@
 </template>
 
 <script setup>
+import { ref, reactive, watch } from 'vue'
+import ErrorMessage from '~/components/ui/ErrorMessage.vue'
+
+// État du formulaire
+const form = reactive({
+  firstName: '',
+  lastName: '',
+  company: '',
+  email: '',
+  phone: '',
+  message: '',
+  agreeToPolicy: false
+})
+
+// État des erreurs
+const errors = ref({})
+
+// Watchers pour effacer les erreurs en temps réel
+watch(() => form.firstName, (newValue) => {
+  if (newValue.trim() && errors.value.firstName) {
+    delete errors.value.firstName
+  }
+})
+
+watch(() => form.lastName, (newValue) => {
+  if (newValue.trim() && errors.value.lastName) {
+    delete errors.value.lastName
+  }
+})
+
+watch(() => form.email, (newValue) => {
+  if (newValue.trim() && errors.value.email) {
+    delete errors.value.email
+  }
+})
+
+watch(() => form.phone, (newValue) => {
+  if (newValue.trim() && errors.value.phone) {
+    delete errors.value.phone
+  }
+})
+
+watch(() => form.message, (newValue) => {
+  if (newValue.trim() && errors.value.message) {
+    delete errors.value.message
+  }
+})
+
+watch(() => form.agreeToPolicy, (newValue) => {
+  if (newValue && errors.value.agreeToPolicy) {
+    delete errors.value.agreeToPolicy
+  }
+})
+
+// Fonction de validation
+const validateForm = () => {
+  const newErrors = {}
+  
+  // Validation prénom
+  if (!form.firstName.trim()) {
+    newErrors.firstName = 'Le prénom est requis'
+  }
+  
+  // Validation nom
+  if (!form.lastName.trim()) {
+    newErrors.lastName = 'Le nom est requis'
+  }
+  
+  // Validation email
+  if (!form.email.trim()) {
+    newErrors.email = 'L\'email est requis'
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    newErrors.email = 'Format d\'email invalide'
+  }
+  
+  // Validation téléphone
+  if (!form.phone.trim()) {
+    newErrors.phone = 'Le numéro de téléphone est requis'
+  }
+  
+  // Validation message
+  if (!form.message.trim()) {
+    newErrors.message = 'Le message est requis'
+  }
+  
+  // Validation politique de confidentialité
+  if (!form.agreeToPolicy) {
+    newErrors.agreeToPolicy = 'Vous devez accepter la politique de confidentialité'
+  }
+  
+  errors.value = newErrors
+  return Object.keys(newErrors).length === 0
+}
+
+// Fonction de soumission
+const handleSubmit = () => {
+  if (validateForm()) {
+    // TODO: Envoyer le formulaire
+    console.log('Formulaire valide:', form)
+    // Ici vous pourrez ajouter l'envoi vers votre API
+  } else {
+    console.log('Erreurs de validation:', errors.value)
+  }
+}
+
 definePageMeta({
   layout: 'default'
 })
